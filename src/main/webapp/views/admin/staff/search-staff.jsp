@@ -52,6 +52,7 @@
 						<th>Mã lương</th>
 						<th>Mã Tài Khoản</th>
 						<th>Trạng thái</th>
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -65,6 +66,13 @@
 							<td>${list.salaryID}</td>
 							<td>${list.accountID}</td>
 							<td>${list.status}</td>
+							<td><a href="#editStaffModal" class="edit"
+								data-toggle="modal"><i class="material-icons"
+									data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
+								href="#deleteStaffModal" class="delete" data-toggle="modal"><i
+									class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+								<input type="hidden" name="id" id="id" value="${list.staffID}">
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -105,3 +113,172 @@
 		</div>
 	</div>
 </div>
+<!-- Add Modal HTML -->
+<div id="addStaffModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form
+				action="${pageContext.request.contextPath}/admin/staff/list?action=create"
+				method="post">
+				<div class="modal-header">
+					<h4 class="modal-title">Thêm nhân viên</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Họ tên</label> <input type="hidden" name="staffName"
+							id="staffName" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Ngày sinh</label> <input type="text" name="DOB" id="DOB"
+							class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Giới tính</label> <input type="text" name="sex" id="sex"
+							class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Số điện thoại</label> <input type="text" name="staffPhone"
+							id="staffPhone" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Mã lương</label> <input type="text" name="salaryID"
+							id="salaryID" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Mã tài khoản</label> <input type="text" name="accountID"
+							id="accountID" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Trạng thái</label> <input type="text" name="status"
+							id="status" class="form-control" required>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal"
+						value="Cancel"> <input type="submit"
+						class="btn btn-success" value="Add">
+
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Edit Modal HTML -->
+<div id="editStaffModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form
+				action="${pageContext.request.contextPath}/admin/staff/list?action=update"
+				method="post">
+				<div class="modal-header">
+					<h4 class="modal-title">Sửa nhân viên</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Họ tên</label> <input type="text" name="staffName"
+							id="staffName" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Ngày sinh</label> <input type="text" name="DOB" id="DOB"
+							class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Giới tính</label> <input type="text" name="sex" id="sex"
+							class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Số điện thoại</label> <input type="text" name="staffPhone"
+							id="staffPhone" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Mã lương</label> <input type="text" name="salaryID"
+							id="salaryID" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Mã tài khoản</label> <input type="text" name="accountID"
+							id="accountID" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Mã trạng thái</label> <input type="text" name="status"
+							id="status" class="form-control" required>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal"
+						value="Cancel"> <input type="submit" class="btn btn-info"
+						value="Save"> <input type="hidden" name="id" id="id">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Delete Modal HTML -->
+<div id="deleteStaffModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form
+				action="${pageContext.request.contextPath}/admin/staff/list?action=delete"
+				method="post">
+				<div class="modal-header">
+					<h4 class="modal-title">Xóa nhân viên</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>Are you sure you want to delete these Records?</p>
+					<p class="text-warning">
+						<small>This action cannot be undone.</small>
+					</p>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal"
+						value="Cancel"> <input type="submit"
+						class="btn btn-danger" value="Delete"> <input type="hidden"
+						name="id" id="id">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	$(document).ready(function() {
+		// Activate tooltip
+		$('[data-toggle="tooltip"]').tooltip();
+
+		$('table .delete').on('click', function() {
+			var id = $(this).parent().find("#id").val();
+			$('#deleteStaffModal #id').val(id);
+		});
+
+		$('table .edit').on('click', function() {
+			var id = $(this).parent().find("#id").val();
+			alert(id)
+			$.ajax({
+				type : 'GET',
+				url : '${pageContext.request.contextPath}/admin/staff/list',
+				data : {
+					action : 'find',
+					id : id
+				},
+				dataType : 'json',
+				contentType : 'application/json',
+				success : function(result) {
+					$('#editStaffModal #id').val(result.staffID);
+					$('#editStaffModal #staffName').val(result.staffName);
+					$('#editStaffModal #DOB').val(result.DOB);
+					$('#editStaffModal #sex').val(result.sex);
+					$('#editStaffModal #staffPhone').val(result.staffPhone);
+					$('#editStaffModal #salaryID').val(result.salaryID);
+					$('#editStaffModal #accountID').val(result.accountID);
+					$('#editStaffModal #status').val(result.status);
+				}
+			});
+		});
+	});
+</script>

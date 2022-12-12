@@ -53,6 +53,7 @@
 						<th style="text-align: center;">Ảnh</th>
 						<th style="text-align: center;">Tình trạng</th>
 						<th style="text-align: center;">Mã danh mục</th>
+						<th style="text-align: center;">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -68,6 +69,13 @@
 								style="width: 200px; height: auto;"></td>
 							<td style="text-align: center;">${list.productStatus}</td>
 							<td style="text-align: center;">${list.categoryID}</td>
+							<td><a href="#editProductModal" class="edit"
+								data-toggle="modal"><i class="material-icons"
+									data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
+								href="#deleteProductModal" class="delete" data-toggle="modal"><i
+									class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+								<input type="hidden" name="id" id="id" value="${list.productID}">
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -108,3 +116,203 @@
 		</div>
 	</div>
 </div>
+<!-- Add Modal HTML -->
+<div id="addProductModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form
+				action="${pageContext.request.contextPath}/admin/product/list?action=create"
+				method="post">
+				<div class="modal-header">
+					<h4 class="modal-title">Thêm sản phẩm</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Tên sản phẩm</label> <input type="text" name="productName"
+							id="productName" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Số lượng</label> <input type="text" name="productAmount"
+							id="productAmount" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Giá tiền</label> <input type="text" name="productPrice"
+							id="productPrice" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Mô tả</label> <input type="text" name="productDescription"
+							id="productDescription" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Ảnh</label> <input type="text" name="productImage"
+							id="productImage" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Tình trạng</label> <input type="text" name="productStatus"
+							id="productStatus" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Mã danh mục</label> <input type="text" name="categoryID"
+							id="categoryID" class="form-control" required>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal"
+						value="Cancel"> <input type="submit"
+						class="btn btn-success" value="Add">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Edit Modal HTML -->
+<div id="editProductModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form
+				action="${pageContext.request.contextPath}/admin/product/list?action=update"
+				method="post">
+				<div class="modal-header">
+					<h4 class="modal-title">Sửa sản phẩm</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Tên sản phẩm</label> <input type="text" name="productName"
+							id="productName" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Số lượng</label> <input type="text" name="productAmount"
+							id="productAmount" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Giá tiền</label> <input type="text" name="productPrice"
+							id="productPrice" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Mô tả</label> <input type="text" name="productDescription"
+							id="productDescription" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Ảnh</label> <input type="text" name="productImage"
+							id="productImage" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Tình trạng</label> <input type="text" name="productStatus"
+							id="productStatus" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Mã danh mục</label> <input type="text" name="categoryID"
+							id="categoryID" class="form-control" required>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal"
+						value="Cancel"> <input type="submit" class="btn btn-info"
+						value="Save"> <input type="hidden" name="id" id="id">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Delete Modal HTML -->
+<div id="deleteProductModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form
+				action="${pageContext.request.contextPath}/admin/product/list?action=delete"
+				method="post">
+				<div class="modal-header">
+					<h4 class="modal-title">Xóa sản phẩm</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>Are you sure you want to delete these Records?</p>
+					<p class="text-warning">
+						<small>This action cannot be undone.</small>
+					</p>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal"
+						value="Cancel"> <input type="submit"
+						class="btn btn-danger" value="Delete"> <input
+						type="hidden" name="id" id="id">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	$(document)
+			.ready(
+					function() {
+						// Activate tooltip
+						$('[data-toggle="tooltip"]').tooltip();
+
+						$('table .delete').on('click', function() {
+							var id = $(this).parent().find("#id").val();
+							$('#deleteProductModal #id').val(id);
+						});
+
+						$('table .edit')
+								.on(
+										'click',
+										function() {
+											var id = $(this).parent().find(
+													"#id").val();
+											alert(id);
+											$
+													.ajax({
+														type : 'GET',
+														url : '${pageContext.request.contextPath}/admin/product/list',
+														data : {
+															action : 'find',
+															id : id
+														},
+														dataType : 'json',
+														contentType : 'application/json',
+														success : function(
+																result) {
+															$(
+																	'#editProductModal #id')
+																	.val(
+																			result.productID);
+															$(
+																	'#editProductModal #productName')
+																	.val(
+																			result.productName);
+															$(
+																	'#editProductModal #productAmount')
+																	.val(
+																			result.productAmount);
+															$(
+																	'#editProductModal #productPrice')
+																	.val(
+																			result.productPrice);
+															$(
+																	'#editProductModal #productDescription')
+																	.val(
+																			result.productDescription);
+															$(
+																	'#editProductModal #productImage')
+																	.val(
+																			result.productImage);
+															$(
+																	'#editProductModal #productStatus')
+																	.val(
+																			result.productStatus);
+															$(
+																	'#editProductModal #categoryID')
+																	.val(
+																			result.categoryID);
+														}
+													});
+										});
+					});
+</script>

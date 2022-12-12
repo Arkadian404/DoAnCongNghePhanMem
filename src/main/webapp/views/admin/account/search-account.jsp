@@ -49,6 +49,7 @@
 						<th>Ngày tạo</th>
 						<th>Vai trò</th>
 						<th>Trạng thái</th>
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -61,6 +62,13 @@
 							<td>${list.createdDate}</td>
 							<td>${list.roleId}</td>
 							<td>${list.status}</td>
+							<td><a href="#editAccountModal" class="edit"
+								data-toggle="modal"><i class="material-icons"
+									data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
+								href="#deleteAccountModal" class="delete" data-toggle="modal"><i
+									class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+								<input type="hidden" name="id" id="id" value="${list.accountId}">
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -101,3 +109,198 @@
 		</div>
 	</div>
 </div>
+<!-- Add Modal HTML -->
+<div id="addAccountModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form
+				action="${pageContext.request.contextPath}/admin/account/list?action=create"
+				method="post">
+				<div class="modal-header">
+					<h4 class="modal-title">Thêm tài khoản</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Tên tài khoản</label> <input type="text" name="userName"
+							id="userName" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Mật khẩu</label> <input type="text" name="passWord"
+							id="passWord" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Email</label> <input type="text" name="email" id="email"
+							class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Ngày tạo</label> <input type="text" name="createdDate"
+							id="createdDate" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Mã vai trò</label> <input type="text" name="roleId"
+							id="roleId" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Trạng thái</label> <input type="text" name="status"
+							id="status" class="form-control" required>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal"
+						value="Cancel"> <input type="submit"
+						class="btn btn-success" value="Add">
+
+
+
+
+
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Edit Modal HTML -->
+<div id="editAccountModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form
+				action="${pageContext.request.contextPath}/admin/account/list?action=update"
+				method="post">
+				<div class="modal-header">
+					<h4 class="modal-title">Sửa tài khoản</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Tên tài khoản</label> <input type="text" name="userName"
+							id="userName" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Mật khẩu</label> <input type="text" name="passWord"
+							id="passWord" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Email</label> <input type="text" name="email" id="email"
+							class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Ngày tạo</label> <input type="text" name="createdDate"
+							id="createdDate" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Mã vai trò</label> <input type="text" name="roleId"
+							id="roleId" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Trạng thái</label> <input type="text" name="status"
+							id="status" class="form-control" required>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal"
+						value="Cancel"> <input type="submit" class="btn btn-info"
+						value="Save"> <input type="hidden" name="id" id="id">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Delete Modal HTML -->
+<div id="deleteAccountModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form
+				action="${pageContext.request.contextPath}/admin/account/list?action=delete"
+				method="post">
+				<div class="modal-header">
+					<h4 class="modal-title">Xóa tài khoản</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>Are you sure you want to delete these Records?</p>
+					<p class="text-warning">
+						<small>This action cannot be undone.</small>
+					</p>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal"
+						value="Cancel"> <input type="submit"
+						class="btn btn-danger" value="Delete"> <input
+						type="hidden" name="id" id="id">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	$(document)
+			.ready(
+					function() {
+						// Activate tooltip
+						$('[data-toggle="tooltip"]').tooltip();
+
+						$('table .delete').on('click', function() {
+							var id = $(this).parent().find("#id").val();
+							//alert(id);
+							$('#deleteAccountModal #id').val(id);
+						});
+
+						$('table .edit')
+								.on(
+										'click',
+										function() {
+											var id = $(this).parent().find(
+													"#id").val();
+											alert(id);
+											$
+													.ajax({
+														type : 'GET',
+														url : '${pageContext.request.contextPath}/admin/account/list',
+														data : {
+															action : 'find',
+															id : id
+														},
+														dataType : 'json',
+														contentType : 'application/json',
+														success : function(
+																result) {
+															$(
+																	'#editAccountModal #id')
+																	.val(
+																			result.accountId);
+															$(
+																	'#editAccountModal #userName')
+																	.val(
+																			result.userName);
+															$(
+																	'#editAccountModal #passWord')
+																	.val(
+																			result.passWord);
+															$(
+																	'#editAccountModal #email')
+																	.val(
+																			result.email);
+															$(
+																	'#editAccountModal #createdDate')
+																	.val(
+																			result.createdDate);
+															$(
+																	'#editAccountModal #roleId')
+																	.val(
+																			result.roleId);
+															$(
+																	'#editAccountModal #status')
+																	.val(
+																			result.status);
+														}
+													});
+										});
+					});
+</script>
